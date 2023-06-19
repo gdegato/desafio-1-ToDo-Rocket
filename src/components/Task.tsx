@@ -1,6 +1,5 @@
 import styles from './Task.module.css'
 import { Trash } from '@phosphor-icons/react'
-import { useState, ChangeEvent } from 'react'
 
 export interface TaskType {
     content: string;

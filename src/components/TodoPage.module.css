@@ -1,0 +1,105 @@
+.todoContainer {}
+
+.tasksPannelControl {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-top: 3.375rem;
+    margin-bottom: 1.5rem;
+}
+
+.tasksPannelControl p:first-child {
+    color: var(--blue);
+}
+
+.tasksPannelControl p:nth-child(2) {
+    color: var(--purple);
+}
+
+.tasksPannelControl span {
+    background-color: var(--gray-400);
+    color: var(--gray-200);
+    border: 1;
+    border-radius: 1rem;
+    padding: 0 8px;
+    margin-left: 4px;
+}
+
+.todoForm {
+    margin-top: -1.5rem;
+}
+
+.inputForm {
+    width: 40rem;
+}
+
+.inputForm input {
+    width: 100%;
+    background-color: var(--gray-500);
+    border: 0;
+    font-size: 1rem;
+    resize: none;
+    height: 3.375rem;
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--gray-100);
+
+}
+
+.inputForm>div {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.inputForm input:focus {
+    box-shadow: 0 0 0 2px var(--purple-dark);
+}
+
+
+button[type=submit] {
+    padding: 1rem 1.5rem;
+    height: 3.375rem;
+    width: 5.625rem;
+    margin-left: 8px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--blue-dark);
+    color: var(--gray-100);
+    gap: 0.5rem;
+
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.1s;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+button[type=submit]:hover {
+    background: var(--blue);
+}
+
+.todoTasks {
+    border-top: 2px solid #333333;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem;
+    line-height: 1.4rem;
+}
+
+.todoTasks img {
+    width: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+/* 
+.tasksPannelControl {
+    display: flex;
+    flex-direction: row;
+} */

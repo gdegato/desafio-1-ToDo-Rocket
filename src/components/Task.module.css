@@ -23,8 +23,12 @@
     border-radius: 4px;
 }
 
-.taskContainer p {
-    font-size: 0.875rem;
+.taskContainer .normalLine {
+    color: var(--gray-100);
+}
+
+.taskContainer .lineThrough{
+    text-decoration: line-through;
 }
 
 .checkboxContainer {
@@ -97,61 +101,3 @@
 }
 
 
-/* 
-label {
-    border: 1px solid #ccc;
-    padding: 1rem;   
-    display: block;
-}
-
-input {
-    border-radius: 15px ;
-}
-
-.checkboxEl {
-    position: relative;
-    margin-left: 4px;
-    width: 20px;
-    float: left;
-    margin: 2px 10px 2px 1px;
-    height: 20px;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: 3px solid #295282;
-    -webkit-appearance: none;
-    outline: none;
-    cursor: pointer;
-    padding: 5px;
-  }
-  
-  .checkboxEl input {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    z-index: 5;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  .checkboxEl:hover {
-    background-color: var(--blue);
-    opacity: 20%;
-    transition: all 0.25s ease-in;  
-  }
-
-  .checkboxCircle {
-    position: relative;
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transform: scale(0.5);
-    transition: all 0.25s ease-in;
-  }
-  
-  .checkboxEl input:checked + .checkboxCircle {
-    background-color: var(--blue);
-    transform: scale(1)
-  } */

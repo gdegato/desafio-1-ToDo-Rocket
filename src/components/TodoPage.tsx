@@ -2,23 +2,23 @@ import styles from './TodoPage.module.css'
 import { PlusCircle } from '@phosphor-icons/react'
 import { Task, TaskType } from './Task'
 import { useState, FormEvent, ChangeEvent } from 'react'
+import clipboard from '../assets/images/clipboard.svg'
+import { v4 as uuidv4 } from 'uuid';
 
 
 export function TodoPage() {
 
     const [tasks, setTasks] = useState<TaskType[]>([]); //criar uma lista de tarefas
-
     const [newTask, setNewTask] = useState(''); //criar uma nova tarefa
-
     const [taskCount, setTaskCount] = useState(0); //contar as tarefas criadas
-
-    const [taskIsFinished, setTaskFinished] = useState(0); //contar as tarefas concluídas
+    const [taskFinished, setTaskFinished] = useState(0); //contar as tarefas concluídas
 
     function handleSubmit(e: FormEvent) { //enviar a nova tarefa no submit do formulario
         e.preventDefault();
         const newTaskText: TaskType = { //passando as propriedades obrigatorias ao criar uma nova tarefa
             content: newTask,
-            id: tasks.length + 1
+            id: uuidv4(),
+            checked: false,
         }
         setTasks([...tasks, newTaskText])
         setNewTask('')//limpar o input após submeter a nova tarefa
@@ -34,37 +34,46 @@ export function TodoPage() {
             return previousTask + 1
         })
     }
-
-    function handleDeleteTask(taskIdToDelete: number) { // deletar tarefas
+    
+  /*
+    function handleDeleteTask(taskIdToDelete: string) { // deletar tarefas
         const tasksWithoutDeletedOne = tasks.filter((task) => {
             return task.id !== taskIdToDelete
         })
-        setTasks(tasksWithoutDeletedOne)
-        setTaskCount(tasksWithoutDeletedOne.length)
+        const itemSelecionado = tasks.filter((task) => {
+            return task.id !== taskIdToDelete
+        })
+        if (itemSelecionado[0].checked) {
+            alert("Não é possivel deletar tarefa finalizada!")
+        } else {
+            setTasks(tasksWithoutDeletedOne)
+            setTaskCount(tasksWithoutDeletedOne.length)
+        }
     }
+*/
+       function handleDeleteTask(taskIdToDelete: string) { // deletar tarefas
+            const tasksWithoutDeletedOne = tasks.filter((task) => {
+                return task.id !== taskIdToDelete
+            })
+            setTasks(tasksWithoutDeletedOne)
+            setTaskCount(tasksWithoutDeletedOne.length)
+        } 
 
-    function handleTaskFinished() { // contador de tarefas concluidas      
+    function handleTaskFinished(taskId: string, checked: boolean) { // contador de tarefas concluidas
+
+        const newList = tasks.map((task) => {
+            if (task.id === taskId) {
+                task.checked = checked
+            }
+            return task
+        })
+
+        setTasks(newList)
         const checkedTask = tasks.filter((task) => {
             return task.checked === true
         })
         setTaskFinished(checkedTask.length)
-
-
-        /*  setTaskIsFinished((checkedTask) => {
-             return checkedTask + 1
-         })
-         console.log(setTaskIsFinished) */
     }
-
-    /*   function handleTaskChecked() { // contador de tarefas concluidas
-  
-          //contar a quantidade de tarefas que estão com checked
-  
-          setTaskChecked((previousTask) => {
-              return previousTask + 1
-          })
-      } */
-
 
     const isNewCommentEmpty = newTask.length === 0;
 
@@ -99,28 +108,29 @@ export function TodoPage() {
                 <div className={styles.todoContent}>
                     <header className={styles.tasksPannelControl} >
                         <p>Tarefas criadas: <span>{taskCount}</span></p>
-                        <p>Concluídas: <span>{taskIsFinished} de {taskCount}</span></p>
+                        <p>Concluídas: <span>{taskFinished} de {taskCount}</span></p>
                     </header>
-                    {/* <div className={styles.todoTasks}>
+                    {!taskCount && (<div className={styles.todoTasks}>
                         <img src={clipboard} alt="" />
                         Você ainda não tem tarefas cadastradas
                         <strong>
                             Crie tarefas e organize seus itens a fazer
                         </strong>
-                    </div> */}
+                    </div>)}
+
                     <div>
+                        {
+                            tasks.map((task) => {
+                                return (
+                                    <Task
+                                        task={task}
+                                        key={task.id}
+                                        onDeleteTask={handleDeleteTask}
+                                        onUpdateTask={handleTaskFinished}
 
-                        {tasks.map((task) => {
-                            return (
-                                <Task
-                                    task={task}
-                                    key={task.id}
-                                    onDeleteTask={handleDeleteTask}
-                                    onUpdateTask={handleTaskFinished}
-
-                                />
-                            )
-                        })}
+                                    />
+                                )
+                            })}
                     </div>
                 </div>
             </div>
@@ -128,3 +138,35 @@ export function TodoPage() {
         </>
     )
 }
+
+/* 
+{
+    !tasks ?
+        (
+            <div className={styles.todoTasks}>
+                <img src={clipboard} alt="" />
+                Você ainda não tem tarefas cadastradas
+                <strong>
+                    Crie tarefas e organize seus itens a fazer
+                </strong>
+            </div>
+        )
+        :
+        (
+            <div>
+                {
+                    tasks.map((task) => {
+                        return (
+                            <Task
+                                task={task}
+                                key={task.id}
+                                onDeleteTask={handleDeleteTask}
+                                onUpdateTask={handleTaskFinished}
+
+                            />
+                        )
+                    })}
+            </div>
+        )
+
+} */

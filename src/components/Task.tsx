@@ -1,32 +1,30 @@
+import { useState } from 'react';
 import styles from './Task.module.css'
 import { Trash } from '@phosphor-icons/react'
 
 export interface TaskType {
     content: string;
-    id: number;
+    id: string;
     checked?: boolean;
 }
 
 interface TaskProps {
     task: TaskType;
-    onDeleteTask: (taskId: number) => void;
-    onUpdateTask: (checked: true) => void;
+    onDeleteTask: (taskId: string) => void;
+    onUpdateTask: (taskId: string, checked: boolean) => void;
 }
 
 export function Task({ task, onDeleteTask, onUpdateTask }: TaskProps) {
 
+    const [taskChecked, setTaskChecked] = useState(false)
+
     function deleteButtonTrashClick() {
         onDeleteTask(task.id)
     }
-    function taskIsFinnalyFinished() {
-        onUpdateTask(true)
-        console.log('taskIsFinnalyFinished aqui gente')
-    }
 
     const checkedOnChange = function handleTaskChecked() { // contador de tarefas concluidas
-       /*  const checked = e.target.value
-        !checked ? setTaskChecked(false) : setTaskChecked(true) */
-        task.checked = true
+        setTaskChecked(true)
+        onUpdateTask(task.id, true)
     }
 
     return (
@@ -36,14 +34,14 @@ export function Task({ task, onDeleteTask, onUpdateTask }: TaskProps) {
                     title="Assinalar como concluída a tarefa"
                     type="checkbox"
                     onChange={checkedOnChange}
-                    onClick={taskIsFinnalyFinished}
-                    /*   value={handleTaskChecked} */
-                    checked={task.checked}
+                    checked={taskChecked}
+                    
                 />
                 <span className={styles.checkmark}></span>
             </label>
 
-            <p>{task.content}</p>
+            <p
+            className={taskChecked ? styles.lineThrough : styles.normalLine}>{task.content}</p>
             <button
                 title="Deletar tarefa"
                 onClick={deleteButtonTrashClick}

@@ -22,9 +22,9 @@ export function Task({ task, onDeleteTask, onUpdateTask }: TaskProps) {
         onDeleteTask(task.id)
     }
 
-    const checkedOnChange = function handleTaskChecked() { // contador de tarefas concluidas
-        setTaskChecked(true)
-        onUpdateTask(task.id, true)
+    const checkedOnChange = function handleTaskChecked() {
+        onUpdateTask(task.id, !taskChecked)
+        setTaskChecked(!taskChecked)
     }
 
     return (
@@ -35,13 +35,13 @@ export function Task({ task, onDeleteTask, onUpdateTask }: TaskProps) {
                     type="checkbox"
                     onChange={checkedOnChange}
                     checked={taskChecked}
-                    
+
                 />
                 <span className={styles.checkmark}></span>
             </label>
 
             <p
-            className={taskChecked ? styles.lineThrough : styles.normalLine}>{task.content}</p>
+                className={taskChecked ? styles.lineThrough : styles.normalLine}>{task.content}</p>
             <button
                 title="Deletar tarefa"
                 onClick={deleteButtonTrashClick}

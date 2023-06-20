@@ -8,10 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export function TodoPage() {
 
-    const [tasks, setTasks] = useState<TaskType[]>([]); //criar uma lista de tarefas
-    const [newTask, setNewTask] = useState(''); //criar uma nova tarefa
-    const [taskCount, setTaskCount] = useState(0); //contar as tarefas criadas
-    const [taskFinished, setTaskFinished] = useState(0); //contar as tarefas concluídas
+    const [tasks, setTasks] = useState<TaskType[]>([]);
+    const [newTask, setNewTask] = useState('');
+    const [taskCounter, setTaskCounter] = useState(0);
+    const [taskFinished, setTaskFinished] = useState(0);
 
     function handleSubmit(e: FormEvent) { //enviar a nova tarefa no submit do formulario
         e.preventDefault();
@@ -29,50 +29,34 @@ export function TodoPage() {
         setNewTask(e.target.value)
     }
 
-    function handleTaskCount() { // contador de tarefas criadas
-        setTaskCount((previousTask) => {
+    function handleTaskCounter() {
+        setTaskCounter((previousTask) => {
             return previousTask + 1
         })
     }
-    
-  /*
-    function handleDeleteTask(taskIdToDelete: string) { // deletar tarefas
+
+    function handleDeleteTask(taskIdToDelete: string) {
         const tasksWithoutDeletedOne = tasks.filter((task) => {
             return task.id !== taskIdToDelete
         })
-        const itemSelecionado = tasks.filter((task) => {
-            return task.id !== taskIdToDelete
-        })
-        if (itemSelecionado[0].checked) {
-            alert("Não é possivel deletar tarefa finalizada!")
-        } else {
-            setTasks(tasksWithoutDeletedOne)
-            setTaskCount(tasksWithoutDeletedOne.length)
-        }
+        setTasks(tasksWithoutDeletedOne)
+        setTaskCounter(tasksWithoutDeletedOne.length)
+
     }
-*/
-       function handleDeleteTask(taskIdToDelete: string) { // deletar tarefas
-            const tasksWithoutDeletedOne = tasks.filter((task) => {
-                return task.id !== taskIdToDelete
-            })
-            setTasks(tasksWithoutDeletedOne)
-            setTaskCount(tasksWithoutDeletedOne.length)
-        } 
 
-    function handleTaskFinished(taskId: string, checked: boolean) { // contador de tarefas concluidas
-
+    function handleTaskFinished(taskId: string, checked: boolean) {
         const newList = tasks.map((task) => {
-            if (task.id === taskId) {
-                task.checked = checked
+            return {
+                ...task,
+                checked: (task.id === taskId) ? checked : task.checked
             }
-            return task
         })
 
         setTasks(newList)
-        const checkedTask = tasks.filter((task) => {
-            return task.checked === true
-        })
-        setTaskFinished(checkedTask.length)
+
+        const total = newList.reduce((accumulator, currentValue) => accumulator + (currentValue.checked ? 1 : 0), 0)
+
+        setTaskFinished(total)
     }
 
     const isNewCommentEmpty = newTask.length === 0;
@@ -84,7 +68,7 @@ export function TodoPage() {
                     <form
                         className={styles.inputForm}
                         onSubmit={handleSubmit}
-                        onSubmitCapture={handleTaskCount}
+                        onSubmitCapture={handleTaskCounter}
                     >
                         <div>
                             <input
@@ -106,11 +90,13 @@ export function TodoPage() {
 
                 </div>
                 <div className={styles.todoContent}>
+
                     <header className={styles.tasksPannelControl} >
-                        <p>Tarefas criadas: <span>{taskCount}</span></p>
-                        <p>Concluídas: <span>{taskFinished} de {taskCount}</span></p>
+                        <p>Tarefas criadas: <span>{taskCounter}</span></p>
+                        <p>Concluídas: <span>{taskFinished} de {taskCounter}</span></p>
                     </header>
-                    {!taskCount && (<div className={styles.todoTasks}>
+
+                    {!taskCounter && (<div className={styles.todoTasks}>
                         <img src={clipboard} alt="" />
                         Você ainda não tem tarefas cadastradas
                         <strong>

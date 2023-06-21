@@ -10,7 +10,7 @@ function App() {
     <>
       <Header />
       <div className={styles.wrapper}>
-        <main>
+        <main className={styles.mainContainerApp}>
           <TodoPage
           />
 

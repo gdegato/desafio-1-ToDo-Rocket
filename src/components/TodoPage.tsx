@@ -124,35 +124,3 @@ export function TodoPage() {
         </>
     )
 }
-
-/* 
-{
-    !tasks ?
-        (
-            <div className={styles.todoTasks}>
-                <img src={clipboard} alt="" />
-                Você ainda não tem tarefas cadastradas
-                <strong>
-                    Crie tarefas e organize seus itens a fazer
-                </strong>
-            </div>
-        )
-        :
-        (
-            <div>
-                {
-                    tasks.map((task) => {
-                        return (
-                            <Task
-                                task={task}
-                                key={task.id}
-                                onDeleteTask={handleDeleteTask}
-                                onUpdateTask={handleTaskFinished}
-
-                            />
-                        )
-                    })}
-            </div>
-        )
-
-} */

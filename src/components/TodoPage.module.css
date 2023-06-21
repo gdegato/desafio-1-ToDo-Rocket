@@ -28,9 +28,6 @@
     margin-top: -1.5rem;
 }
 
-.inputForm {
-    width: 40rem;
-}
 
 .inputForm input {
     width: 100%;
@@ -48,7 +45,6 @@
 .inputForm>div {
     display: flex;
     flex-direction: row;
-
 }
 
 .inputForm input:focus {
@@ -76,7 +72,6 @@ button[type=submit] {
     justify-content: space-between;
 }
 
-
 button[type=submit]:hover {
     background: var(--blue);
 }
@@ -95,9 +90,3 @@ button[type=submit]:hover {
     width: 3.5rem;
     margin-bottom: 1rem;
 }
-
-/* 
-.tasksPannelControl {
-    display: flex;
-    flex-direction: row;
-} */

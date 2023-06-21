@@ -1,41 +1,36 @@
 .taskContainer {
     display: grid;
-    grid-template-columns: 3.25rem 40rem 3.25rem;
+    grid-template-columns: 3.25rem 36.5rem 3.25rem;
     background-color: var(--gray-400);
     padding: 1rem 0.5rem;
     border-radius: 8px;
     margin-bottom: 0.75rem;
 }
 
-.taskContainer button {
+.taskContainer>button {
     background: transparent;
     border: 0;
     color: var(--gray-300);
     cursor: pointer;
-    line-height: 0;
-    border-radius: 2px;
+    line-height: 0;    
 }
 
 .taskContainer button:hover {
     color: var(--danger);
-    background: var(--gray-300);
-    margin: 10px 12px;
-    border-radius: 4px;
+    background: var(--gray-500);
+    border-radius: 1px;   
 }
 
 .taskContainer .normalLine {
     color: var(--gray-100);
 }
 
-.taskContainer .lineThrough{
+.taskContainer .lineThrough {
     text-decoration: line-through;
 }
 
 .checkboxContainer {
     display: block;
-    /*  position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px; */
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
@@ -54,9 +49,6 @@
 
 .checkmark {
     position: absolute;
-
-    /*top: 12px;
-    left: 12px; */
     margin-left: 20px;
     height: 18px;
     width: 18px;
@@ -99,5 +91,3 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-
-
